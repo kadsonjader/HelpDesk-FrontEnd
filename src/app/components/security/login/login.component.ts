@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.usuarioService.login(this.usuario).subscribe((userAuthentication: CurrentUser) => {
       this.shared.token =  userAuthentication.token;
       this.shared.usuario = userAuthentication.usuario;
-      this.shared.usuario.perfil = this.shared.usuario.perfil.substring(5);
+      this.shared.usuario.profile = this.shared.usuario.profile.substring(5);
       this.shared.showTemplate.emit(true);
       this.router.navigate(['/']);
     }, err => {
@@ -44,6 +44,14 @@ export class LoginComponent implements OnInit {
     this.usuario = new Usuario('','','','');
     window.location.href = '/login';
     window.location.reload();
+  }
+
+  getFormGroupClass(isInvalid: boolean, isDirty:boolean): {} {
+    return {
+      'form-group': true,
+      'has-error' : isInvalid  && isDirty,
+      'has-success' : !isInvalid  && isDirty
+    };
   }
 
 }
